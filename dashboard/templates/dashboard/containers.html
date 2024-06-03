@@ -7,6 +7,7 @@
             <th scope="col">Container ID</th>
             <th scope="col">Name</th>
             <th scope="col">Image</th>
+			<th scope="col">Ports</th>
             <th scope="col">Status</th>
             <th scope="col">Actions</th>
         </tr>
@@ -17,6 +18,7 @@
                 <td>{{container.id}}</td>
                 <td>{{container.name}}</td>
                 <td>{{container.image}}</td>
+				<td>{{container.ports}}</td>
                 <td>{{container.status}}</td>
                 <td>
                     <button type="button" id="btn_start" value="{{container.name}}" class="btn btn-success start" {% if container.state == 'running' %} disabled {% endif %}>Start</button>
