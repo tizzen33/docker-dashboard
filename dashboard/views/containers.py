@@ -17,12 +17,17 @@ def containers_list(request):
     containers = []
     try:
         for r in resp:
+            if r['Ports'][0].get('PublicPort') is not None:
+                ports = str(r['Ports'][0].get('PublicPort'))+"->"+str(r['Ports'][0].get('PrivatePort'))
+            else:
+                ports = str(r['Ports'][0].get('PrivatePort'))
             container = {
                 'id': r['Id'][:12],
                 'name': r['Names'][0].replace('/', ''),
                 'image': r['Image'],
                 'status': r['Status'],
-                'state': r['State']
+                'state': r['State'],
+                'ports': ports
             }
             containers.append(container)
         return render(request, 'dashboard/containers.html', {'containers': containers})  
