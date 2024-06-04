@@ -39,7 +39,7 @@ def docker_requester(func):
 
 @docker_requester
 def list_container():
-    return 'get', 'containers/json?all=true', None
+    return 'get', 'containers/json?all=true&size=True', None
 
 
 @docker_requester

@@ -17,13 +17,20 @@ def containers_list(request):
     containers = []
     try:
         for r in resp:
+            if len(r['Ports']) == 0:
+                ports = "host"
+            elif r['Ports'][0].get('PublicPort') is not None:
+                ports = str(r['Ports'][0].get('PublicPort'))+"->"+str(r['Ports'][0].get('PrivatePort'))
+            else:
+                ports = str(r['Ports'][0].get('PrivatePort'))
             container = {
                 'id': r['Id'][:12],
                 'name': r['Names'][0].replace('/', ''),
                 'image': r['Image'],
                 'status': r['Status'],
                 'state': r['State'],
-                'ports': "None"
+                'ports': ports,
+                'size': str(round(r['SizeRootFs']/1000000))+" MB"
             }
             containers.append(container)
         return render(request, 'dashboard/containers.html', {'containers': containers})  
