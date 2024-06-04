@@ -7,7 +7,7 @@ from dashboard.helpers import list_image, delete_image, pull_image
 
 
 def redirect_view(request):
-    return HttpResponseRedirect('/containers')
+    return HttpResponseRedirect('containers')
 
 
 def images_list(request):
