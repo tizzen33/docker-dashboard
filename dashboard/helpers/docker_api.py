@@ -92,7 +92,7 @@ def inspect_network(network):
     endpoint = 'networks/{}'.format(network)
     return 'get', endpoint, None
     
-    @docker_requester
+@docker_requester
 def delete_network(network):
     endpoint = 'networks/{}'.format(network)
     return 'delete', endpoint, None
