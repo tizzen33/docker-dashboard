@@ -82,3 +82,17 @@ def pull_image(image, tag):
         tag = 'latest'
     endpoint = 'images/create?fromImage={}&tag={}'.format(image, tag)
     return 'post', endpoint, None
+
+@docker_requester
+def list_network():
+    return 'get', 'networks', None
+
+@docker_requester
+def inspect_network(network):
+    endpoint = 'networks/{}'.format(network)
+    return 'get', endpoint, None
+    
+    @docker_requester
+def delete_network(network):
+    endpoint = 'networks/{}'.format(network)
+    return 'delete', endpoint, None

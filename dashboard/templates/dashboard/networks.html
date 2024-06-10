@@ -1,0 +1,55 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+<table class="table table-hover table-sm">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+			<th scope="col">Name</th>
+            <th scope="col">Network</th>
+            <th scope="col">Attached containers</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for network in networks %}
+            <tr>
+				<td>{{network.id}}</td>
+                <td>{{network.name}}</td>
+                <td>{{network.ipv4net}}</td>
+                <td>{{network.containers}}</td>
+                <td>
+                    <button type="button" value={{network.name}} class="btn btn-danger delete">Delete Network</button>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<script>
+
+    $('.delete').click((element) => {
+        network = element.target.value
+        delete_network(network)
+    })
+
+    function delete_network(network) {
+        var result = confirm(`Do you want to DELETE network '${network}' ?`);
+        if (result){
+            $.ajax({
+                method: "POST",
+                url: "networks/delete",
+                data: {name: network},
+                success: function(){
+                    alert("Network deleted successfully !")
+                    location.reload(true);
+                },
+                error: function(){
+                    alert(`Can't delete network. Maybe some container is using it !`)
+                }
+            });
+        }
+    };
+
+</script>
+{% endblock %}
+

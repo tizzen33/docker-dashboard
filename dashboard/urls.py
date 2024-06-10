@@ -11,4 +11,6 @@ urlpatterns = [
     path('containers/start', views.StartContainer.as_view(), name='start_containers'),
     path('containers/create', views.CreateContainer.as_view(), name='create_containers'),
     path('containers/delete', views.DeleteContainer.as_view(), name='delete_containers'),
+    path('networks', views.networks_list, name='networks_list'),
+    path('networks/delete', views.DeleteNetwork.as_view(), name='delete_networks'),
 ]
