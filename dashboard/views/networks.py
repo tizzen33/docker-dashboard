@@ -31,7 +31,7 @@ def networks_list(request):
     except (KeyError, TypeError):
         return render(request, 'dashboard/networks.html', {})
 
-class DeleteContainer(APIView):
+class DeleteNetwork(APIView):
 
     def post(self, request):
         try:
