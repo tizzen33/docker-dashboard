@@ -20,15 +20,17 @@ def networks_list(request):
             if not _resp:
                 return render(request, 'dashboard/networks.html', {})
             
+            ipv4net = r['IPAM']['Config'][0]['Subnet'] if len(r['IPAM']['Config']) > 0 else "None"
+            
             network = {
                 'id': r['Id'][:12],
                 'name': r['Name'],
-                'ipv4net': r['IPAM']['Config'][0]['Subnet'],
+                'ipv4net': ipv4net,
                 'containers': len(_resp['Containers']),
             }
             networks.append(network)
         return render(request, 'dashboard/networks.html', {'networks': networks})  
-    except (KeyError, TypeError):
+    except (KeyError, TypeError, IndexError):
         return render(request, 'dashboard/networks.html', {})
 
 class DeleteNetwork(APIView):
